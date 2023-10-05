@@ -1,0 +1,77 @@
+@{
+  ViewData["Title"] = "TAREAS";
+}
+
+
+<!-- Modal -->
+<div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content fondo2">
+      <div class="modal-header">
+        <h5 class="modal-title" id="tituloModal">Agregar Tareas</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="TareaID" value="0" />
+        <div>
+          <label class="control-label">Asignatura</label>
+          <select class="form-control" id="AsignaturaSelect">
+          </select>
+          @* <br> *@
+          <label class="control-label">Titulo</label>
+          <input type="text" class="form-control" id="Titulo" autocomplete="off">
+          @* <label class="control-label">Descripcion</label>
+          <input type="text" class="form-control" id="Descripcion" autocomplete="off" /> *@
+          <label class="control-label">Descripcion</label>
+          <textarea class="form-control" id="Descripcion" autocomplete="off"></textarea>
+          <label class="control-label">fecha de Carga</label>
+          <input type="date" class="form-control" id="FechaCarga" autocomplete="off" />
+          <label class="control-label">fecha de Vencimiento</label>
+          <input type="date" class="form-control" id="FechaVencimiento" autocomplete="off" />
+
+          <p class="text-danger" id="alerta"></p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" onclick="GuardarTarea()" class="btn btn-primary">Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="fondoTablas">
+  <h1 class="display-4">Tareas</h1>
+  <h3>Docente:</h3>
+  <select onchange="BuscarTareas(this.value)" id="FiltroProfe">
+
+  </select>
+  @* <select onchange="BuscarTareas()" id="Filtro">
+  <option selected value="2">Validas</option>
+  <option value="1">Todas</option>
+  </select> *@
+  <table class="table table-bordered table-hover table-light table-condensed text-uppercase">
+    <thead>
+      <tr>
+        <th>Titulo</th>
+        <th>Descripcion</th>
+        <th>Fecha de Carga</th>
+        <th>Fecha de Vencimiento</th>
+        <th>Asignatura</th>
+        <th>Profesor</th>
+        <th class="text-end">
+          <button type="button" id="btn-Nuevo" disabled onclick="VaciarFormulario()" class="btn btn-primary"
+            data-bs-toggle="modal" data-bs-target="#Modal">
+            Nuevo</button>
+        </th>
+      </tr>
+    </thead>
+    <tbody id="tbody-tareas">
+    </tbody>
+  </table>
+</div>
+
+@section Scripts {
+  <script src="~/js/tareas.js"></script>
+}

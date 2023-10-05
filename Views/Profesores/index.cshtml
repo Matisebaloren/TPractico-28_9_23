@@ -1,0 +1,105 @@
+@{
+  ViewData["Title"] = "Profesores";
+}
+<style>
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  li {
+    margin-bottom: 8px;
+  }
+</style>
+<!-- Modal -->
+<div class="modal fade" id="ModalCategoria" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content fondo2">
+      <div class="modal-header">
+        <h5 class="modal-title" id="tituloModal">Agregar Profesor</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="ProfesorID" value="0" />
+        <div>
+          <label class="control-label">Nombre Completo</label>
+          <input type="text" class="form-control" id="NombreCompleto" autocomplete="off"
+            onkeyup="this.value = this.value.toUpperCase()" />
+
+          <label class="control-label">DNI</label>
+          <input type="number" class="form-control" id="DNI" autocomplete="off" />
+
+          <label class="control-label">Fecha de Nacimiento</label>
+          <input type="date" class="form-control" id="FechaNac" autocomplete="off" />
+
+          <label class="control-label">dirección</label>
+          <input type="text" class="form-control" id="direccion" autocomplete="off"
+            onkeyup="this.value = this.value.toUpperCase()" />
+
+          <label class="control-label">Email</label>
+          <input type="text" class="form-control" id="email" autocomplete="off" />
+
+          <p class="text-danger" id="alerta"></p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cerrar
+        </button>
+        <button type="button" onclick="GuardarProfesor()" class="btn btn-primary">
+          Guardar Cambios
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="ModalAsignatura" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content fondo2">
+      <div class="modal-header">
+        <h5 class="modal-title" id="tituloModal">Asignaturas asocidas</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="ProfesorID" value="0" />
+        <div id="modalBodyAsignaturas">
+          
+        </div>
+<i class="bi bi-asterisk"></i>      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div>
+  <h1 class="display-4">Profesores</h1>
+  <table class="table table-bordered table-hover table-light table-condensed text-uppercase">
+    <thead>
+      <tr>
+        <th>Nombre Com.</th>
+        <th>DNI</th>
+        <th>Fecha Nac.</th>
+        <th>Dirección</th>
+        <th>Email</th>
+
+        <th class="text-end">
+          <button type="button" onclick="VaciarFormulario()" class="btn btn-primary" data-bs-toggle="modal"
+            data-bs-target="#ModalCategoria">
+            Nuevo
+          </button>
+        </th>
+      </tr>
+    </thead>
+    <tbody id="tbody-profesores"></tbody>
+  </table>
+</div>
+
+@section Scripts{
+  <script src="~/js/profesores.js"></script>
+}

@@ -1,0 +1,59 @@
+@{
+    ViewData["Title"] = "Carreras";
+}
+
+
+<!-- Modal -->
+<div class="modal fade" id="ModalCategoria" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content fondo2">
+      <div class="modal-header">
+        <h5 class="modal-title" id="tituloModal">Agregar Carrera</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="CarreraID" value="0" />
+        <div>
+            <label class="control-label">Nombre</label>
+            <input type="text" class="form-control" id="Nombre" autocomplete="off" onkeyup="this.value = this.value.toUpperCase()"/>
+            
+            <label class="control-label">Duracion</label>
+            <input type="number" min="1" class="form-control" id="Duracion" autocomplete="off" value="1"/>
+            
+            <p class="text-danger" id="alerta"></p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" onclick="GuardarCarrera()" class="btn btn-primary">Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div>
+  <h1 class="display-4">Carreras</h1>
+  <table class="table table-bordered table-hover table-light table-condensed text-uppercase">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Duración</th>
+            <th class="text-end">
+              <button type="button" onclick="VaciarFormulario()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalCategoria">
+              Nuevo</button>
+            </th>
+        </tr>
+    </thead>
+        <tbody id="tbody-carreras">        
+        </tbody>
+  </table>
+</div>
+
+
+
+
+
+@section Scripts{
+    <script src="~/js/carreras.js"></script>
+}

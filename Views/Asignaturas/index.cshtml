@@ -1,0 +1,64 @@
+@{
+  ViewData["Title"] = "TAREAS";
+}
+
+
+<!-- Modal -->
+<div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content fondo2">
+      <div class="modal-header">
+        <h5 class="modal-title" id="tituloModal">Agregar Asignaturas</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="AsignaturaID" value="0" />
+        <div>
+          <label class="control-label">Nombre</label>
+          <input type="text" class="form-control" id="Nombre" autocomplete="off"
+            onkeyup="this.value = this.value.toUpperCase()" />
+
+          <label class="control-label">Carrera de cursado</label>
+          @Html.DropDownList("CarreraID", null, htmlAttributes: new
+            {
+              @class =
+                 "form-control"
+            })
+          <p class="text-danger" id="alerta"></p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" onclick="GuardarAsignatura()" class="btn btn-primary">Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="fondoTablas">
+  <h1 class="display-4">Asignaturas</h1>
+  @* <select onchange="BuscarAsignaturas()" id="Filtro">
+    <option selected value="2">Validas</option>
+    <option value="1">Todas</option>
+  </select> *@
+  <table class="table table-bordered table-hover table-light table-condensed text-uppercase">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Carrera</th>
+        <th class="text-end">
+          <button type="button" onclick="VaciarFormulario()" class="btn btn-primary" data-bs-toggle="modal"
+            data-bs-target="#Modal">
+            Nuevo</button>
+        </th>
+      </tr>
+    </thead>
+    <tbody id="tbody-asignaturas">
+    </tbody>
+  </table>
+</div>
+
+@section Scripts{
+  <script src="~/js/asignaturas.js"></script>
+}

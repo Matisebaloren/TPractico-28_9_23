@@ -1,0 +1,59 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.profesor{
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+
+.bg-white {
+  background-color: #ffe77c !important;
+}
+
+.btn-primary {
+  color: black;
+  background-color: #ffe77c;
+  border-color: #ffe77c;
+}
+
+.btn-primary:hover {
+  color: #fff;
+  background-color: #c4ad4b;
+  border-color: #c4ad4b;
+}
+
+.btn-primary.disabled, .btn-primary:disabled {
+  color: #ffffff;
+  background-color: #3a341a;
+  border-color: #3a341a;
+}
+
+.btn-success {
+  color: black;
+  background-color: #afd45b;
+  border-color: #afd45b;
+}
+.btn-success:hover {
+  color: white;
+  background-color: #627535;
+  border-color: #435024;
+}
+
