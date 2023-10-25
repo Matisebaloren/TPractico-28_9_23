@@ -35,9 +35,11 @@ function BuscarAsignaturas() {
             <tr class="${danger}">
                 <td>${asignatura.nombre} </td>
                 <td>${asignatura.carreraNombre}</td>
-                <td>
+                <td>${asignatura.nombreProfesor}</td>
+                <td class="text-end">
+                ${deshabilitar}
                 ${editar}
-                  ${deshabilitar}
+                  
                 </td>
             </tr>
             `;

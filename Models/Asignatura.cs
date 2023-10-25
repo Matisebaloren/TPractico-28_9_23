@@ -19,6 +19,7 @@ public class VistaAsignatura
     public int AsignaturaID { get; set; }
     public string? Nombre { get; set; }
 
+    public string? NombreProfesor { get; set; }
     public string? CarreraNombre { get; set; }
     public int CarreraID { get; set; }
     public bool CarreraEliminada { get; set; }

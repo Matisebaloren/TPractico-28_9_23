@@ -92,7 +92,7 @@ public class CarrerasController : Controller
     {
         String resultado = "error";
         var carrera = _contexto.Carreras.Where(c => c.CarreraID == carreraID).FirstOrDefault();
-        
+
         if (carrera.Eliminado == true)
         {
             carrera.Eliminado = false;
@@ -118,4 +118,21 @@ public class CarrerasController : Controller
         return Json(resultado);
     }
 
+
+
+    public JsonResult GraficoCarreraAlumno()
+    {
+        var carreras = _contexto.Carreras.ToList();
+        var labels = new List<string>();
+        var data = new List<int>();
+        foreach (var carrera in carreras)
+        {
+            var alumnos = _contexto.Alumnos.Where(a => a.CarreraID == carrera.CarreraID).Count();
+            labels.Add(carrera.Nombre);
+            data.Add(alumnos);
+        }
+        var resultado = new { Labels = labels, data = data };
+
+        return Json(resultado);
+    }
 }

@@ -10,15 +10,18 @@ function BuscarProfesores() {
     dataType: "json",
 
     success: function (profesores) {
+      console.log("Profesores: " + JSON.stringify(profesores));
       let tr = "";
       $("#FiltroProfe").append(
         `<option selected value="">Selecciona un profesor</option>`
       );
       $.each(profesores, function (index, profesor) {
-        tr = `
+        if (profesor.eliminado != true) {
+          tr = `
             <option value="${profesor.profesorID}">${profesor.nombreCompleto}</option>
             `;
-        $("#FiltroProfe").append(`${tr}`);
+          $("#FiltroProfe").append(`${tr}`);
+        }
       });
     },
 
@@ -36,7 +39,7 @@ var profeID;
 
 function BuscarTareas(profesorID) {
   profeID = profesorID;
-  $("#tbody-tareas").empty();
+  $("#tbody-tareas2").empty();
 
   $.ajax({
     url: "../../Tareas/BuscarTareas",
@@ -45,7 +48,7 @@ function BuscarTareas(profesorID) {
     dataType: "json",
 
     success: function (resultado) {
-      $("#tbody-tareas").empty();
+      $("#tbody-tareas2").empty();
       $("#AsignaturaSelect").empty();
       $("#btn-Nuevo").prop("disabled", true);
       $.each(resultado.asignaturas, function (index, asignatura) {
@@ -61,80 +64,56 @@ function BuscarTareas(profesorID) {
         let fechaCarga = `${partesFechaCarga[2]}-${partesFechaCarga[1]}-${partesFechaCarga[0]}`;
         let partesFechaVenci = tarea.fechaVencimiento.split("T")[0].split("-");
         let fechaVencimiento = `${partesFechaVenci[2]}-${partesFechaVenci[1]}-${partesFechaVenci[0]}`;
-        // let deshabilitar, estado, clase;
-
-        // if (tarea.finalizada == false) {
-        //   finalizar = `<button type="button" onclick="Finalizar(${tarea.tareaID})" class="btn btn-dark">Finalizar</button>`;
-        // }
-
-        // if (tarea.eliminada == false) {
-        //   deshabilitar = `<button type="button" onclick="Deshabilitar(${tarea.tareaID})" class="btn btn-danger">Eliminar</button>`;
-        // } else {
-        //   clase += " text-danger";
-        //   deshabilitar = `<button type="button" onclick="Deshabilitar(${tarea.tareaID})" class="btn btn-success">Habilitar</button>`;
-        // }
-        // if (tarea.finalizada == true) {
-        //   estado = "Realizada";
-        //   clase += " table-info";
-        // } else {
-        //   estado = "En Proceso";
-        // }
-
-        // <td>
-        //   <button
-        //     type="button"
-        //     onclick="BuscarTarea(${tarea.tareaID})"
-        //     class="btn btn-primary"
-        //   >
-        //     Editar
-        //   </button>
-        //   ${deshabilitar}${finalizar}
-        // </td>;
         var nombreAsignatura = "";
         $.each(resultado.asignaturas, function (index, asignatura) {
           if (tarea.asignaturaID == asignatura.asignaturaID) {
             nombreAsignatura = asignatura.nombre;
           }
         });
-        let deshabilitar,
-          danger = "text-danger";
+        let deshabilitar, danger, letra;
         console.log(tarea);
         if (tarea.eliminada == false) {
-          danger = "";
           deshabilitar = `<button type="button" onclick="Deshabilitar(${tarea.tareaID})" class="btn btn-danger">Deshabilitar</button>`;
         } else {
+          danger = "card-delete";
+          letra = "grey-text";
           deshabilitar = `<button type="button" onclick="Deshabilitar(${tarea.tareaID})" class="btn btn-success">Habilitar</button>`;
         }
         tr = `
-            <tr class="${danger}">
-                <td>${tarea.titulo} </td>
-                <td>${tarea.descripcion} </td>
-                <td class="justify-content-end">${fechaCarga}</td>
-                <td class="justify-content-end">${fechaVencimiento}</td>
-                <td>${nombreAsignatura} </td>
-                <td>${tarea.profesorNombre} </td>
-                <td><button type="button" onclick="BuscarTarea(${tarea.tareaID})" class="btn btn-primary">
-                    Editar
-                  </button>
-                  ${deshabilitar}
-                  </td>
-            </tr>
+            
+            
+    <div class="row card-papel mx-1 ${danger}">
+      <div class="col-md-9 col-12">
+        <h3>${tarea.titulo}</h3>
+        <div class="descripcion ${letra}">
+        ${tarea.descripcion}
+        </div>
+      </div>
+      <div class="col-md-3 col-12 mb-2">
+        <span class="d-flex align-items-center">
+          <h4>Asignatura:</h4>${nombreAsignatura}</span>
+        <span class="d-flex align-items-center">
+          <h4>De: </h4> ${tarea.profesorNombre}
+        </span>
+        <span class="d-flex align-items-center">
+          <h4>Carga: </h4> ${fechaCarga}
+        </span>
+        <span class="d-flex align-items-center">
+          <h4>Vence: </h4> ${fechaVencimiento}
+        </span>
+        <button type="button" onclick="BuscarTarea(${tarea.tareaID})" class="btn btn-warning">Editar</button>
+              ${deshabilitar}
+      </div>
+    </div>
+ 
             `;
 
         var existe = resultado.asignaturas.some(
           (item) => item.asignaturaID === tarea.asignaturaID
         );
         if (existe) {
-          $("#tbody-tareas").append(`${tr}`);
+          $("#tbody-tareas2").append(`${tr}`);
         }
-
-        // if ($("#Filtro").val() == 2) {
-        //   if (tarea.eliminada == false) {
-        //     $("#tbody-tareas").append(`${tr}`);
-        //   }
-        // } else {
-        //   $("#tbody-tareas").append(`${tr}`);
-        // }
       });
     },
 
@@ -151,11 +130,13 @@ function BuscarTareas(profesorID) {
 // let fechaFormateada = `${partesFecha[2]}-${partesFecha[1]}-${partesFecha[0]}`;
 function VaciarFormulario() {
   const fechaHoy = new Date().toISOString().slice(0, 10);
+
   $("#Titulo").val("");
   $("#Descripcion").val("");
   $("#FechaCarga").val(fechaHoy);
   $("#FechaVencimiento").val(fechaHoy);
   document.getElementById("tituloModal").innerHTML = "Agregar Tarea";
+  $("#Modal").modal("show");
 }
 
 function GuardarTarea() {

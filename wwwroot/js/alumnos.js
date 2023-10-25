@@ -1,4 +1,9 @@
-﻿window.onload = BuscarAlumnos();
+﻿window.onload = function () {
+  BuscarAlumnos();
+  GraficoAlumnoEdades();
+};
+
+// window.onload = BuscarAlumnos();
 
 function BuscarAlumnos() {
   VaciarFormulario();
@@ -17,10 +22,11 @@ function BuscarAlumnos() {
       $.each(alumnos, function (index, alumno) {
         let partesFecha = alumno.fecha.split("T")[0].split("-");
         let fechaFormateada = `${partesFecha[2]}-${partesFecha[1]}-${partesFecha[0]}`;
-        let deshabilitar = "", editar;
+        let deshabilitar = "",
+          editar;
         let danger = "text-danger";
-        
-        if(alumno.carrera.eliminado == false){
+
+        if (alumno.carrera.eliminado == false) {
           if (alumno.eliminado == false) {
             danger = "";
             deshabilitar = `<button type="button" onclick="Deshabilitar(${alumno.alumnoID})" class="btn btn-danger">Deshabilitar</button>`;
@@ -28,9 +34,8 @@ function BuscarAlumnos() {
             deshabilitar = `<button type="button" onclick="Deshabilitar(${alumno.alumnoID})" class="btn btn-success">Habilitar</button>`;
           }
           editar = `<button type="button" onclick="BuscarAlumno(${alumno.alumnoID})" class="btn btn-primary">Editar</button>`;
-        }
-        else{
-          editar = `<p>Carrera Eliminada</p>`
+        } else {
+          editar = `<p>Carrera Eliminada</p>`;
         }
         tr = `
             <tr class="${danger}">
@@ -40,13 +45,25 @@ function BuscarAlumnos() {
                 <td>${alumno.dni} </td>
                 <td>${alumno.email} </td>
                 <td>${alumno.carrera.nombre}</td>
-                <td>
-                ${editar}
+                <td class="text-end">
                   ${deshabilitar}
+                  ${editar}
                 </td>
             </tr>
             `;
+        let trImprimir = `
+            <tr class="${danger}">
+                <td>${alumno.nombreCompleto} </td>
+                <td>${alumno.direccion} </td>
+                <td>${fechaFormateada}</td>
+                <td>${alumno.dni} </td>
+                <td>${alumno.email} </td>
+                <td>${alumno.carrera.nombre}</td>
+            </tr>
+            `;
+
         $("#tbody-alumnos").append(`${tr}`);
+        $("#tbody-alumnos-imprimir").append(`${trImprimir}`);
       });
     },
 
@@ -176,4 +193,182 @@ function Deshabilitar(alumnoID) {
       alert("Error al cargar alumnos");
     },
   });
+}
+
+function GraficoAlumnoEdades() {
+  console.log("Alumno");
+  $.ajax({
+    url: "../../Alumnos/GraficoAlumnoEdades",
+    data: {},
+    type: "GET",
+    dataType: "json",
+
+    success: function (resultado) {
+      console.log();
+      const ctx = document.getElementById("AlumnosEdades");
+
+      function generateRandomColor() {
+        var letters = "0123456789ABCDEF";
+        var color = "#";
+        for (var i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      }
+
+      // var labels = resultado.labels;
+      var data = resultado.data;
+      console.log(data);
+      var labels = [
+        "Menor de 20",
+        "21 a 25",
+        "26 a 30",
+        "30 a 35",
+        "Mayor de 35",
+      ];
+      console.log(labels);
+      var backgroundColors = labels.map(function () {
+        return generateRandomColor();
+      });
+
+      new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: "# de Estudiantes",
+              data: data,
+              fill: false,
+              borderColor: "rgb(75, 192, 192)",
+              tension: 0.2,
+            },
+          ],
+        },
+        options: {
+          // scales: {
+          //   2:0
+          // },
+          elements: {
+            line: {
+              tension: 0.3,
+              // fill: true,
+              borderWidth: 6,
+              backgroundColor: "#666",
+            },
+          },
+        },
+      });
+    },
+
+    error: function (xhr, status) {
+      alert("Error al cargar alumnos");
+    },
+  });
+}
+
+var escondido = true;
+$("#AlumnosEdades").css({
+  opacity: 0,
+  "z-index": -1,
+});
+
+function esconder() {
+  if (escondido == true) {
+    escondido = false;
+    $("#AlumnosEdades").css({
+      opacity: 1,
+      "z-index": 1,
+    });
+    $("#tabla-alumnos").css({
+      opacity: 0,
+      "z-index": -1,
+    });
+  } else {
+    escondido = true;
+    $("#AlumnosEdades").css({
+      opacity: 0,
+      "z-index": -1,
+    });
+    $("#AlumnosEdades").show();
+    $("#tabla-alumnos").css({
+      opacity: 1,
+      "z-index": 1,
+    });
+  }
+}
+
+function Imprimir() {
+  var doc = new jsPDF();
+  //var doc = new jsPDF('l', 'mm', [297, 210]);
+
+  var totalPagesExp = "{total_pages_count_string}";
+  var pageContent = function (data) {
+    var pageHeight =
+      doc.internal.pageSize.height || doc.internal.pageSize.getHeight();
+    var pageWidth =
+      doc.internal.pageSize.width || doc.internal.pageSize.getWidth();
+
+    // FOOTER
+    var str = "Pagina " + data.pageCount;
+    // Total page number plugin only available in jspdf v1.0+
+    if (typeof doc.putTotalPages == "function") {
+      str = str + " de " + totalPagesExp;
+    }
+
+    doc.setLineWidth(8);
+    doc.setDrawColor(238, 238, 238);
+    doc.line(14, pageHeight - 11, 196, pageHeight - 11);
+
+    doc.setFontSize(10);
+
+    doc.setFontStyle("bold");
+
+    doc.text(str, 17, pageHeight - 10);
+  };
+
+  var table = doc.autoTableHtmlToJson(
+    document.getElementById("tabla-imprimir")
+  );
+
+  doc.text('Estudiantes', 15, 10);
+
+  doc.autoTable({
+    head: [table.columns],
+    body: table.data,
+    didDrawPage: function (data) {
+      // Agrega tu función de pie de página aquí
+    },
+    headStyles: {
+      fillColor: [255, 231, 124], // Amarillo
+      textColor: [0, 0, 0] // Texto en negro
+    },
+    styles: {
+      fillColor: [240, 240, 240], // Gris claro
+      textColor: [0, 0, 0], // Texto en negro
+      valign: 'middle'
+    }
+  });
+
+  // ESTO SE LLAMA ANTES DE ABRIR EL PDF PARA QUE MUESTRE EN EL PDF EL NRO TOTAL DE PAGINAS. ACA CALCULA EL TOTAL DE PAGINAS.
+  if (typeof doc.putTotalPages === "function") {
+    doc.putTotalPages(totalPagesExp);
+  }
+
+  //doc.save('InformeSistema.pdf')
+
+  var string = doc.output("datauristring");
+  var iframe =
+    "<iframe width='100%' height='100%' src='" + string + "'></iframe>";
+
+  var x = window.open();
+  if (x) {
+    x.document.open();
+    // Resto del código...
+  } else {
+    console.log("La ventana no se pudo abrir");
+  }
+  x.document.open();
+  x.document.write(iframe);
+  x.document.close();
 }

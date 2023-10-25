@@ -29,7 +29,7 @@
           <input type="number" class="form-control" id="DNI" autocomplete="off" min="10000000" max="99999999" />
 
           <label class="control-label">Email</label>
-          <input type="email" class="form-control" id="Email" autocomplete="off"/>
+          <input type="email" class="form-control" id="Email" autocomplete="off" />
 
 
           <label class="control-label">Carrera de cursado</label>
@@ -55,8 +55,39 @@
 </div>
 
 <div>
+  <canvas id="AlumnosEdades" style="opacity: 0;"></canvas>
+</div>
+
+<div onclick="esconder()" class="btn btn-esconder">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-graph-up"
+    viewBox="0 0 16 16">
+    <path fill-rule="evenodd"
+      d="M0 0h1v15h15v1H0V0Zm14.817 3.113a.5.5 0 0 1 .07.704l-4.5 5.5a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61 4.15-5.073a.5.5 0 0 1 .704-.07Z" />
+  </svg>
+  Edades
+</div>
+ <button class="btn btn-flotante btn-success btn-sm" onclick="Imprimir()">Imprimir</button>
+
+
+<table id="tabla-imprimir" class="table table-bordered" hidden>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Dirección</th>
+      <th>Fecha de Nacimiento</th>
+      <th>DNI</th>
+      <th>Email</th>
+      <th>Carrera</th>
+    </tr>
+  </thead>
+  <tbody id="tbody-alumnos-imprimir">
+  </tbody>
+</table>
+
+<div id="tabla-alumnos">
   <h1 class="display-4">Estudiantes</h1>
-  <table class="table table-bordered table-hover table-light table-condensed text-uppercase">
+ 
+  <table class="table table-alumnos mx-auto table-bordered table-hover table-light table-condensed text-uppercase">
     <thead>
       <tr>
         <th>Nombre</th>
@@ -77,6 +108,9 @@
   </table>
 </div>
 
-@section Scripts{
+
+
+<script src="chart.js/dist/chart.umd.js"></script>
+@section Scripts {
   <script src="~/js/alumnos.js"></script>
 }

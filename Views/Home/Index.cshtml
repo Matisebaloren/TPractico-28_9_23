@@ -1,8 +1,14 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Aula Virtual";
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+ <video id="miVideo" loop muted playsinline preload="auto" class="video-fondo2"
+    style="opacity: 0; transition: opacity 3s;">
+    <source src="/img/usandoCompu2.mp4" type="video/mp4">
+  </video>
+<div class="text-center m-5">
+    <h1 class="display-4 homeTitulo">Bienvenido al Aula Virtual</h1>
 </div>
+
+@section Scripts{
+  <script src="~/js/home.js"></script>
+}

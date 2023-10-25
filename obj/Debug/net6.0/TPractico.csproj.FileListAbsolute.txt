@@ -1174,3 +1174,5 @@ C:\Users\MSL\Desktop\Repositorio\TPractico 28_9_23\obj\Debug\net6.0\refint\TPrac
 C:\Users\MSL\Desktop\Repositorio\TPractico 28_9_23\obj\Debug\net6.0\TPractico.pdb
 C:\Users\MSL\Desktop\Repositorio\TPractico 28_9_23\obj\Debug\net6.0\TPractico.genruntimeconfig.cache
 C:\Users\MSL\Desktop\Repositorio\TPractico 28_9_23\obj\Debug\net6.0\ref\TPractico.dll
+C:\Users\MSL\Desktop\Repositorio\TPractico 28_9_23\bin\Debug\net6.0\package-lock.json
+C:\Users\MSL\Desktop\Repositorio\TPractico 28_9_23\bin\Debug\net6.0\package.json

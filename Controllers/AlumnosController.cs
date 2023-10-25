@@ -4,10 +4,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using TPractico.Data;
 using TPractico.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace TPractico.Controllers;
-
+[Authorize]
 public class AlumnosController : Controller
 {
     private readonly ILogger<AlumnosController> _logger;
@@ -118,6 +119,38 @@ public class AlumnosController : Controller
         }
         resultado = "cambiar";
         _contexto.SaveChanges();
+        return Json(resultado);
+    }
+
+    public JsonResult GraficoAlumnoEdades()
+    {
+        var alumnos = _contexto.Alumnos.ToList();
+        var data = new List<int>() { 0, 0, 0, 0, 0,   };
+        foreach (var alumno in alumnos)
+        {
+            var años = DateTime.Now.Year - alumno.Fecha.Year;
+            if (años <= 20) //menor de 20
+            {
+                data[0]++;  
+            }
+            else if(años > 20 && años <= 25) //21 a 25
+            {
+                data[1]++; 
+            }
+            else if(años > 25 && años <= 30) //26 a 30
+            {
+                data[2]++; 
+            }
+            else if(años > 30 && años <= 35) // 30 a 35
+            {
+                data[3]++; 
+            }
+            else if(años > 35) // >35
+            {
+                data[4]++; 
+            }
+        }
+        var resultado = new { data = data };
         return Json(resultado);
     }
 }

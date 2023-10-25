@@ -20,8 +20,6 @@
           @* <br> *@
           <label class="control-label">Titulo</label>
           <input type="text" class="form-control" id="Titulo" autocomplete="off">
-          @* <label class="control-label">Descripcion</label>
-          <input type="text" class="form-control" id="Descripcion" autocomplete="off" /> *@
           <label class="control-label">Descripcion</label>
           <textarea class="form-control" id="Descripcion" autocomplete="off"></textarea>
           <label class="control-label">fecha de Carga</label>
@@ -41,35 +39,42 @@
 </div>
 
 
-<div class="fondoTablas">
+
+
+<div class="fondoTablas mb-2">
   <h1 class="display-4">Tareas</h1>
   <h3>Docente:</h3>
-  <select onchange="BuscarTareas(this.value)" id="FiltroProfe">
+  <div class="d-flex">
+    <select class="form-control" onchange="BuscarTareas(this.value)" id="FiltroProfe">
+    </select>
+    <button type="button" id="btn-Nuevo" disabled onclick="VaciarFormulario()" class="btn btn-primary">
+      Nuevo</button>
+  </div>
+</div>
 
-  </select>
-  @* <select onchange="BuscarTareas()" id="Filtro">
-  <option selected value="2">Validas</option>
-  <option value="1">Todas</option>
-  </select> *@
-  <table class="table table-bordered table-hover table-light table-condensed text-uppercase">
-    <thead>
-      <tr>
-        <th>Titulo</th>
-        <th>Descripcion</th>
-        <th>Fecha de Carga</th>
-        <th>Fecha de Vencimiento</th>
-        <th>Asignatura</th>
-        <th>Profesor</th>
-        <th class="text-end">
-          <button type="button" id="btn-Nuevo" disabled onclick="VaciarFormulario()" class="btn btn-primary"
-            data-bs-toggle="modal" data-bs-target="#Modal">
-            Nuevo</button>
-        </th>
-      </tr>
-    </thead>
-    <tbody id="tbody-tareas">
-    </tbody>
-  </table>
+<div id="tbody-tareas2">
+  @* <div class="row card-papel">
+  <div class="col-9">
+  <h3>titulo</h3>
+  <div class="descripcion">
+
+  </div>
+  </div>
+  <div class="col-3 ">
+  <span class="d-flex align-items-center">
+  <h4>Asignatura: </h4>profesor
+  </span>
+  <span class="d-flex align-items-center">
+  <h4>De: </h4>profesor
+  </span>
+  <span class="d-flex align-items-center">
+  <h4>Carga: </h4>
+  </span>
+  <span class="d-flex align-items-center">
+  <h4>Vence: </h4>
+  </span>
+  </div>
+  </div> *@
 </div>
 
 @section Scripts {

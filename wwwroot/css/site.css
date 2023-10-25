@@ -17,12 +17,11 @@ body {
   margin-bottom: 60px;
 }
 
-.profesor{
+.profesor {
   font-weight: 500;
   cursor: pointer;
   text-decoration: underline;
 }
-
 
 .bg-white {
   background-color: #ffe77c !important;
@@ -40,7 +39,8 @@ body {
   border-color: #c4ad4b;
 }
 
-.btn-primary.disabled, .btn-primary:disabled {
+.btn-primary.disabled,
+.btn-primary:disabled {
   color: #ffffff;
   background-color: #3a341a;
   border-color: #3a341a;
@@ -57,3 +57,289 @@ body {
   border-color: #435024;
 }
 
+.card-papel {
+  border-radius: 8px;
+  border: 1px solid grey;
+  background-color: #ffe77c;
+  margin-top: 1rem;
+}
+
+.card-papel h4{
+ margin-bottom: 0;
+ margin-right: auto;
+ /* margin-top: 1rem; */
+}
+
+.card-delete {
+  background-color: #ffc6c6;
+}
+.grey-text {
+  color: rgb(126, 126, 126);
+}
+
+.descripcion {
+  padding-inline: 1rem;
+  padding-block: 0.4rem;
+  background-color: white;
+  width: 100%;
+  min-height: calc(100% - 52px);
+  border-radius: 8px;
+  border: 1px solid gray;
+}
+
+.footer {
+  line-height: 15px !important;
+}
+
+#AlumnosEdades {
+  max-height: 80% !important;
+  width: 90% !important;
+  margin-inline: 2% !important;
+  position: fixed;
+  transition: all 0.5s ease-in-out;
+  left: 1rem;
+  top: 8rem;
+}
+
+#CarreraAlumnos {
+  max-height: 80% !important;
+  width: 90% !important;
+  margin-inline: 2% !important;
+  position: fixed;
+  transition: all 0.5s ease-in-out;
+  left: 1rem;
+  height: 100% !important;
+  max-height: 70% !important;
+}
+/* @media (max-width: 900px) {
+  .table-alumnos {
+    font-size: 1.5vw;
+  }
+}
+
+@media (min-width: 1150px) {
+  .table-alumnos {
+    font-size: 1.2rem;
+  }
+  .table-alumnos .btn {
+    font-size: 1.2vw !important;
+  }
+}
+
+@media (min-width: 1330px) {
+  .table-alumnos {
+    font-size: 1.5vw;
+  }
+} */
+
+.table-alumnos {
+
+  font-size: 1.4vw;
+  width: min-content !important;
+}
+.table-alumnos .btn {
+  font-size: 1.4vw !important;
+}
+.table-alumnos .td {
+  padding: 3%;
+}
+
+.margin-editado{
+  margin: 2%;
+}
+
+#tabla-alumnos{
+  transition: all 0.5s ease-in-out;
+}
+
+.btn-esconder{
+  /* background-color: bisque !important; */
+  font-weight: 500;
+  box-shadow: 2px 2px 7px gray !important;
+  border: 1px solid gray !important;
+  position: absolute;
+  right: 1rem;
+  font-size: 1.6vw !important;
+  z-index: 2;
+}
+.btn-flotante{
+  font-weight: 500;
+  box-shadow: 2px 2px 7px gray !important;
+  border: 1px solid gray !important;
+  position: absolute;
+  left: 1rem;
+  font-size: 1.6vw !important;
+  z-index: 2;
+}
+
+.video-fondo2 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0px 0px 7px 2px white inset;
+  object-fit: cover; /* Escala el video para llenar el contenedor */
+  z-index: -1; /* Coloca el video detrás del contenido superpuesto */
+}
+
+.homeTitulo{
+  text-shadow: 0px 0px 2px rgb(0, 0, 0);
+  color: white;
+  background-color: #ffe77c36;
+  border-radius: 10px;
+}
+
+.navbar-modificado{
+  background-color: #ffe77c !important;
+  color: white !important;
+}
+
+/* lo nuevo */
+
+.styled-checkbox {
+  position: absolute; 
+  opacity: 0; 
+
+  & + label {
+    position: relative;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  & + label:before {
+    border: 1px solid black;
+    content: '';
+    margin-right: 10px;
+    display: inline-block;
+    vertical-align: text-top;
+    width: 20px;
+    height: 20px;
+    background: white;
+  }
+
+  &:hover + label:before {
+    background: #f35429;
+  }
+  
+  &:focus + label:before {
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.12);
+  }
+
+  &:checked + label:before {
+    background: #f35429;
+    
+  }
+  
+  &:disabled + label {
+    color: #b8b8b8;
+    cursor: auto;
+  }
+
+  &:disabled + label:before {
+    box-shadow: none;
+    background: #ddd;
+  }
+
+  &:checked + label:after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 9px;
+    background: white;
+    width: 2px;
+    height: 2px;
+    box-shadow: 
+      2px 0 0 rgb(255, 255, 255),
+      4px 0 0 white,
+      4px -2px 0 white,
+      4px -4px 0 white,
+      4px -6px 0 white,
+      4px -8px 0 white;
+    transform: rotate(45deg);
+  }
+}
+
+
+
+
+/*
+ * Useless styles, just for demo design
+ */
+body {
+  font-family: "Open Sans", "Segoe WP", "Segoe UI", Helvetica, Arial, sans-serif;
+  text-align: center;
+  color: #34495E;
+    background: #FCFDFD;
+}
+
+a[href^="https://www.creativejuiz"] {
+  color: #34495E;
+  text-decoration: underline;
+}
+
+h1 {
+  margin-top: 1em;
+  text-align: center;
+}
+
+/* h2 {
+  margin-top: 0;
+  margin-bottom: 2em;
+  color: #CB22ED;
+  font-weight: normal;
+} */
+
+/* form {
+  width: 120px;
+  margin: 0 auto 55px;
+  text-align: left;
+} */
+
+/* div p:first-child {
+  font-weight: bold;
+  font-size: 1.2em;
+} */
+
+p { 
+  color: #aaa;
+  text-align: center;
+}
+
+p a {
+  color: inherit;
+}
+
+p + p {
+  margin-top: 3em;
+}
+
+form p {
+  margin: 15px 0;
+  color: #34495E;
+}
+
+a[href^="https://twitter.com"] {
+  color: #1da1f2;
+}
+
+.btn.btn {
+  display: inline-block;
+  padding: 8px 24px;
+  text-decoration: none;
+  border-radius: 40px;
+  background: #34495E;
+  color: #F2F2F2;
+  transition: all .4s;
+}
+
+.btn.btn:hover,
+.btn.btn:focus {
+  background: #000;
+  color: white;
+}
+
+.table-hover>tbody>tr:hover.danger {
+  --bs-table-accent-bg: red;
+  color: var(--bs-table-hover-color);
+}

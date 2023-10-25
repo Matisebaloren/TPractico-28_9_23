@@ -14,20 +14,21 @@ function BuscarCarreras() {
       let tr = "";
       $.each(carreras, function (index, carrera) {
         let deshabilitar;
-        let danger="text-danger";
+        let danger = "text-danger";
         if (carrera.eliminado == false) {
-          danger="";
-          deshabilitar = `<button type="button" onclick="Deshabilitar(${carrera.carreraID})" class="btn btn-danger">Deshabilitar</button>`;
+          danger = "";
+          deshabilitar = `<button type="button" onclick="Deshabilitar(${carrera.carreraID}, this.innerText)" class="btn btn-danger">Deshabilitar</button>`;
         } else {
-          deshabilitar = `<button type="button" onclick="Deshabilitar(${carrera.carreraID})" class="btn btn-success">Habilitar</button>`;
+          deshabilitar = `<button type="button" onclick="Deshabilitar(${carrera.carreraID}, this.innerText)" class="btn btn-success">Habilitar</button>`;
         }
         tr = `
             <tr class="${danger}">
                 <td class="" >${carrera.nombre} </td>
                 <td class="justify-content-end" >${carrera.duracion} años</td>
-                <td class="" >
+                <td class="text-end" >
+                ${deshabilitar}
                   <button type="button" onclick="BuscarAlumno(${carrera.carreraID})" class="btn btn-primary">Editar</button>
-                  ${deshabilitar}
+                  
                 </td>
             </tr>
             `;
@@ -102,26 +103,43 @@ function BuscarAlumno(carreraID) {
       document.getElementById("alerta").innerHTML = "Error al cargar alumno";
     },
 
-    complete: function (xhr, status) {
-    },
+    complete: function (xhr, status) {},
   });
 }
 
-function Deshabilitar(carreraID) {
-  $.ajax({
-    url: "../../Carreras/Deshabilitar",
-    data: { carreraID: carreraID },
-    type: "GET",
-    dataType: "json",
+function Deshabilitar(carreraID, texto) {
+  console.log(texto);
+    var desc = "";
+  if(texto == "Deshabilitar"){
+    var desc = "Recuerda, cuando deshabilites una carrera, también se desactivarán todos los elementos asociados a ella.";
+  }
+  Swal.fire({
+    title:
+      "¿Estás seguro de que quieres proceder?",
+      text: desc,
+    showDenyButton: true,
+    confirmButtonText: "Aceptar",
+    denyButtonText: `Cancelar`,
+  }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+      $.ajax({
+        url: "../../Carreras/Deshabilitar",
+        data: { carreraID: carreraID },
+        type: "GET",
+        dataType: "json",
 
-    success: function (resultado) {
-      console.log(resultado);
+        success: function (resultado) {
+          console.log(resultado);
 
-      BuscarCarreras();
-    },
+          BuscarCarreras();
+        },
 
-    error: function (xhr, status) {
-      alert("Error al cargar carreras");
-    },
+        error: function (xhr, status) {
+          alert("Error al cargar carreras");
+        },
+      });
+    } else if (result.isDenied) {
+    }
   });
 }

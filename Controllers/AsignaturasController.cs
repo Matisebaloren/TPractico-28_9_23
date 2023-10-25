@@ -35,17 +35,23 @@ public class AsignaturasController : Controller
     {
         List<VistaAsignatura> AsignaturasMostrar = new List<VistaAsignatura>();
         var asignaturas = _contexto.Asignaturas.OrderBy(t => t.Nombre).ToList();
+        
         var carreras = _contexto.Carreras.ToList();
+        var profAsigs = _contexto.ProfesorAsignaturas.ToList();
 
         if (asignaturaID > 0)
         {
             asignaturas = asignaturas.Where(p => p.AsignaturaID == asignaturaID).ToList();
         }
 
-
         foreach (var asignatura in asignaturas)
         {
             var carrera = carreras.Where(c => c.CarreraID == asignatura.CarreraID).FirstOrDefault();
+            var profAsig = profAsigs.Where(pa => pa.AsignaturaID == asignatura.AsignaturaID && pa.Eliminado != true).FirstOrDefault();
+            var nombreProfesor = "Sin asignar";
+            if(profAsig != null){
+                nombreProfesor = _contexto.Profesores.Where(p => p.ProfesorID == profAsig.ProfesorID).Select(p => p.NombreCompleto).FirstOrDefault();
+            }
             var AsignaturaMostrar = new VistaAsignatura
             {
                 AsignaturaID = asignatura.AsignaturaID,
@@ -54,6 +60,7 @@ public class AsignaturasController : Controller
                 CarreraEliminada = carrera.Eliminado,
                 CarreraID = asignatura.CarreraID,
                 Eliminado = asignatura.Eliminado,
+                NombreProfesor = nombreProfesor,
             };
             AsignaturasMostrar.Add(AsignaturaMostrar);
         };

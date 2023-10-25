@@ -7,9 +7,13 @@
     padding-left: 0;
   }
 
-  li {
-    margin-bottom: 8px;
+  .modal-scroll{
+    height: 60vh;
+    overflow: auto;
   }
+
+
+
 </style>
 <!-- Modal -->
 <div class="modal fade" id="ModalCategoria" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -60,9 +64,10 @@
     <div class="modal-content fondo2">
       <div class="modal-header">
         <h5 class="modal-title" id="tituloModal">Asignaturas asocidas</h5>
+        <i class="bi bi-lock-fill"></i>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body modal-scroll">
         <input type="hidden" id="ProfesorID" value="0" />
         <div id="modalBodyAsignaturas">
           
@@ -79,6 +84,7 @@
 
 <div>
   <h1 class="display-4">Profesores</h1>
+  <p>Click en los nombres de los profesores para Editar sus Asignaturas.</p><i class="bi bi-mortarboard-fill"></i>
   <table class="table table-bordered table-hover table-light table-condensed text-uppercase">
     <thead>
       <tr>
